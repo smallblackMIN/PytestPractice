@@ -6,7 +6,7 @@ import yaml
 1、针对add(),对输入内容类型做区分：正整数，负整数，正浮点数，负浮点数，非法类型
 2、针对div(),将除数和被除数分开，除数等价划分为：正数，负数，0，非法类型；被除数等价划分为：0，正数，负数，非法类型
 '''
-class Test_Calc():
+class Test_Calc_01:
 
     def setup(self):
         self.calc = Calc()
@@ -19,7 +19,9 @@ class Test_Calc():
         :param c: 结果
         将数字类型划分为正整数，负整数，正浮点数，负浮点数，进行组合相加
         '''
-        assert round(self.calc.add(a,b),1) == c
+        data = (a,b)
+        assert round(self.calc.add(*data),1) == c
+        assert round(self.calc.add1(data)) == c
 
     @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(open("add_error_data.yaml")))
     def test_add_error(self,a,b,c):
